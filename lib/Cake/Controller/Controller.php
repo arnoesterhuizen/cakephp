@@ -557,7 +557,6 @@ class Controller extends Object implements CakeEventListener {
 
 		if ($mergeParent || !empty($pluginController)) {
 			$appVars = get_class_vars($this->_mergeParent);
-			$uses = $appVars['uses'];
 			$merge = array('components', 'helpers');
 			$this->_mergeVars($merge, $this->_mergeParent, true);
 		}
@@ -797,7 +796,7 @@ class Controller extends Object implements CakeEventListener {
  * @return array Array with keys url, status and exit
  */
 	protected function _parseBeforeRedirect($response, $url, $status, $exit) {
-		if (is_array($response) && isset($response[0])) {
+		if (is_array($response) && array_key_exists(0, $response)) {
 			foreach ($response as $resp) {
 				if (is_array($resp) && isset($resp['url'])) {
 					extract($resp, EXTR_OVERWRITE);

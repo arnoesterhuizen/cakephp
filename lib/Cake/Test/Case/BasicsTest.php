@@ -67,7 +67,7 @@ class BasicsTest extends CakeTestCase {
 		$one = array('minYear' => null, 'maxYear' => null, 'separator' => '-', 'interval' => 1, 'monthNames' => true);
 		$two = array('minYear' => null, 'maxYear' => null, 'separator' => '-', 'interval' => 1, 'monthNames' => true);
 		$result = array_diff_key($one, $two);
-		$this->assertEquals(array(), $result);
+		$this->assertSame(array(), $result);
 	}
 
 /**
@@ -225,6 +225,15 @@ class BasicsTest extends CakeTestCase {
 			'n' => '&nbsp;'
 		);
 		$this->assertEquals($expected, $result);
+
+		// Test that boolean values are not converted to strings
+		$result = h(false);
+		$this->assertFalse($result);
+
+		$arr = array('foo' => false, 'bar' => true);
+		$result = h($arr);
+		$this->assertFalse($result['foo']);
+		$this->assertTrue($result['bar']);
 
 		$obj = new stdClass();
 		$result = h($obj);
