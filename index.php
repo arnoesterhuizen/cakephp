@@ -19,11 +19,11 @@
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @since         CakePHP(tm) v 0.2.9
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
- *  Get Cake's root directory
+ *  Get CakePHP's root directory
  */
 define('APP_DIR', 'app');
 define('DS', DIRECTORY_SEPARATOR);

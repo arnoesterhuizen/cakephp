@@ -2,7 +2,7 @@
 /**
  * This is the PHP base ACL configuration file.
  *
- * Use it to configure access control of your Cake application.
+ * Use it to configure access control of your CakePHP application.
  *
  * PHP 5
  *
@@ -17,7 +17,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.Config
  * @since         CakePHP(tm) v 2.1
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
