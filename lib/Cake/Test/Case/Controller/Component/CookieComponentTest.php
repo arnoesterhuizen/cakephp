@@ -328,6 +328,44 @@ class CookieComponentTest extends CakeTestCase {
 	}
 
 /**
+ * Test that writing mixed arrays results in the correct data.
+ *
+ * @return void
+ */
+	public function testWriteMixedArray() {
+		$this->Cookie->encrypt = false;
+		$this->Cookie->write('User', array('name' => 'mark'), false);
+		$this->Cookie->write('User.email', 'mark@example.com', false);
+		$expected = array(
+			'name' => $this->Cookie->name . '[User]',
+			'value' => '{"name":"mark","email":"mark@example.com"}',
+			'path' => '/',
+			'domain' => '',
+			'secure' => false,
+			'httpOnly' => false
+		);
+		$result = $this->Controller->response->cookie($this->Cookie->name . '[User]');
+		unset($result['expire']);
+
+		$this->assertEquals($expected, $result);
+
+		$this->Cookie->write('User.email', 'mark@example.com', false);
+		$this->Cookie->write('User', array('name' => 'mark'), false);
+		$expected = array(
+			'name' => $this->Cookie->name . '[User]',
+			'value' => '{"name":"mark"}',
+			'path' => '/',
+			'domain' => '',
+			'secure' => false,
+			'httpOnly' => false
+		);
+		$result = $this->Controller->response->cookie($this->Cookie->name . '[User]');
+		unset($result['expire']);
+
+		$this->assertEquals($expected, $result);
+	}
+
+/**
  * testReadingCookieValue
  *
  * @return void
@@ -563,12 +601,14 @@ class CookieComponentTest extends CakeTestCase {
 		$_COOKIE['CakeTestCookie'] = array(
 			'JSON' => '{"name":"value"}',
 			'Empty' => '',
-			'String' => '{"somewhat:"broken"}'
+			'String' => '{"somewhat:"broken"}',
+			'Array' => '{}'
 		);
 		$this->assertEquals(array('name' => 'value'), $this->Cookie->read('JSON'));
 		$this->assertEquals('value', $this->Cookie->read('JSON.name'));
 		$this->assertEquals('', $this->Cookie->read('Empty'));
 		$this->assertEquals('{"somewhat:"broken"}', $this->Cookie->read('String'));
+		$this->assertEquals(array(), $this->Cookie->read('Array'));
 	}
 
 /**
